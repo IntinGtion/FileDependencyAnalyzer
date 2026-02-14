@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/FileDependencyAnalyzer.Cli/FileDependencyAnalyzer.Cli.csproj" />
+    <Project Path="src/FileDependencyAnalyzer.Core/FileDependencyAnalyzer.Core.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/FileDependencyAnalyzer.Tests/FileDependencyAnalyzer.Tests.csproj" />
+  </Folder>
+</Solution>

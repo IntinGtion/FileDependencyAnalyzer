@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "FileDependencyAnalyzer.Cli": {
+      "commandName": "Project",
+      "commandLineArgs": "D:\\TestFolder\r\n"
+    }
+  }
+}
