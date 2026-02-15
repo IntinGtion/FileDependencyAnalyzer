@@ -88,15 +88,19 @@ public sealed class PowerShellDependencyRule : IDependencyRule
         if (!looksLikePath)
             return false;
 
-        // $PSScriptRoot auf Ordner des Skripts abbilden (statischer, einfacher Fall)
+        // Map $PSScriptRoot to the directory of the current script (simple static case)
         token = token.Replace("$PSScriptRoot", baseDir, StringComparison.OrdinalIgnoreCase)
                      .Replace("${PSScriptRoot}", baseDir, StringComparison.OrdinalIgnoreCase);
 
-        // Wenn noch andere Variablen drin sind, überspringen wir (statisch nicht sicher auflösbar)
+        // If other variables remain, skip (not safely resolvable statically)
         if (token.Contains('$'))
             return false;
 
-        // Relativpfade auflösen
+        // Normalize Windows/Unix separators to the current OS separator.
+        // This allows resolving PowerShell paths like ".\helper.ps1" on Linux runners as well.
+        token = NormalizeSeparators(token);
+
+        // Resolve relative paths
         var combined = Path.IsPathRooted(token)
             ? token
             : Path.Combine(baseDir, token);
@@ -104,4 +108,8 @@ public sealed class PowerShellDependencyRule : IDependencyRule
         fullPath = Path.GetFullPath(combined);
         return true;
     }
+
+    private static string NormalizeSeparators(string path)
+        => path.Replace('\\', Path.DirectorySeparatorChar)
+               .Replace('/', Path.DirectorySeparatorChar);
 }
