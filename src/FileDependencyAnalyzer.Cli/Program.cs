@@ -6,7 +6,7 @@ using System.Text.Json;
 namespace FileDependencyAnalyzer.Cli;
 
 /// <summary>
-/// 
+/// Program
 /// </summary>
 internal static class Program
 {
